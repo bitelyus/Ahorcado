@@ -146,6 +146,20 @@ namespace Ahorcado.src.View
             CH.lcdColor(salida,ConsoleColor.Red);
         }
 
+        public static void mostrarResultado(char[] resultado) {
+            string salida;
+
+            salida="";
+            foreach (char c in resultado) {
+                if (c.ToString().Equals(0)) {
+                    salida+="_ ";
+                } else {
+                    salida+=c.ToString() + " ";   
+                }  
+            }
+            CH.lcd("\nI> RESOLUCION: " + salida); 
+        }
+
         public static void mostrarLetras(char[] letras) {
             string salida;
 
@@ -157,6 +171,8 @@ namespace Ahorcado.src.View
 
             CH.lcdColor(salida,ConsoleColor.Cyan);
         }
+
+
 
     }
 }

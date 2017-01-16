@@ -29,7 +29,7 @@ namespace Ahorcado.src.Controler
 
             // ENTRADA
 
-            salir = false;          // 
+            salir = false;  
             
             // PROCESO
             comprobarFicheros();                            // COMPROBAMOS LA EXISTENCIA LA ESTRUCTURA DE DATOS PARA EL diccionario.txt
@@ -61,7 +61,14 @@ namespace Ahorcado.src.Controler
 
         }
 
+        /// <sumary>
+        /// PROCEDIMIENTO PARA COMENZAR UNA NUEVA PARTIDA
+        /// </sumary>
         public static void iniciarPartida() {
+
+            // 1. Comprobar existencia de palabras en el diccionario
+            // 2. Elegir una palabra al azar
+            // 3. Comenzar a pedir letras o palabra resolver
 
             char letra;         
             char[] palabra_char;
@@ -120,15 +127,14 @@ namespace Ahorcado.src.Controler
                                 posicion++;
                             }
                             CH.cls();
-                            mostrarResultado(resultado);
+                            InterfazAhorcado.mostrarResultado(resultado);
                             if (!encontrada) {
-                                CH.lcdColor("\ni> LA LETRA '"+ letra +"' NO ESTA! | INTENTOS: " + intentos,ConsoleColor.Red);
                                 fallos++;
-
+                                CH.lcdColor("\ni> LA LETRA '"+ letra +"' NO ESTA! | INTENTOS: " + intentos + " | ACIERTOS: " + aciertos + " | VIDAS: " + (10-fallos),ConsoleColor.Red);
                             } else {
                                     aciertos+=contador;
                                     i++;
-                                    CH.lcdColor("\ni> PALABRA ENCONTRADA " + contador + " VECES | ACIERTOS: " + aciertos + " | INTENTOS: " + intentos,ConsoleColor.Yellow);
+                                    CH.lcdColor("\ni> PALABRA ENCONTRADA " + contador + " VECES | INTENTOS: " + intentos + " | ACIERTOS: " + aciertos + " | VIDAS: " + (10-fallos),ConsoleColor.Yellow);
                             }
                             if (aciertos==palabras) {
                                 InterfazAhorcado.lifesLeft(10-fallos);
@@ -151,14 +157,9 @@ namespace Ahorcado.src.Controler
                 } while (!salir);
             } else {
                 CH.lcdColor("!> NO HAY PALABRAS EN EL DICCIONARIO!!",ConsoleColor.Red);
-            }
-            
+            }            
             CH.pausa();
-
         }
-
-
-
 
         public static void comprobarFicheros() {
  
@@ -270,20 +271,6 @@ namespace Ahorcado.src.Controler
                 }
             }
             return encontrada;
-        }
-
-        public static void mostrarResultado(char[] resultado) {
-            string salida;
-
-            salida="";
-            foreach (char c in resultado) {
-                if (c.ToString().Equals(0)) {
-                    salida+="_ ";
-                } else {
-                    salida+=c.ToString() + " ";   
-                }  
-            }
-            CH.lcd("\nI> RESOLUCION: " + salida); 
         }
 
         public static bool resolver(int puntos) {

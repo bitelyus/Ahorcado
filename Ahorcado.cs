@@ -11,7 +11,6 @@ git init
 PREGUNTAS
 1. los acentos? -- comprobando con array de vocales acentuadas?
  
-
 */
 using Ahorcado.src.Controler;
 
