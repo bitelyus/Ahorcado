@@ -73,6 +73,7 @@ namespace Ahorcado.src.Controler
             char letra;         
             char[] palabra_char;
             char[] resultado;
+            string salida;
             
             Random random;
             int opcion, palabras, contador, i, j, aciertos, fallos, intentos, posicion;
@@ -98,8 +99,14 @@ namespace Ahorcado.src.Controler
                 fallos = 0;
                 intentos = 0;
                 i = 0;
+                salida ="";
                 //CH.lcd("l> PALABRA A ACERTAR: " + palabra);
                 CH.lcdColor("\ni> OK, MiK.. VAMOS A JUGAR UN POCO\ni> INTRODUCE [RESOLVER] PARA RESOLVER\ni> YO YA TENGO LA PALABRA\n",ConsoleColor.Cyan);
+                
+                for (j=0;j<palabras;j++) {
+                    salida+="_ ";
+                }
+                CH.lcdColor("i> PALABRA: " + salida + "\n",ConsoleColor.Cyan);
 
                 do {
                     contador = 0;
