@@ -75,7 +75,7 @@ namespace Ahorcado.src.Controler
             char[] resultado;
             
             Random random;
-            int opcion, palabras, contador, i, aciertos, fallos, intentos, posicion;
+            int opcion, palabras, contador, i, j, aciertos, fallos, intentos, posicion;
             bool encontrada, salir;
 
 
@@ -88,6 +88,9 @@ namespace Ahorcado.src.Controler
                 palabra = diccionario.palabras[opcion];
                 palabra_char = palabra.ToCharArray();
                 resultado = new char[palabra_char.Length];
+                for (j=0;j<resultado.Length;j++) {
+                    resultado[j]='_';
+                }
                 palabras = palabra.Length;
                 encontrada = false;
                 salir = false;
@@ -212,8 +215,12 @@ namespace Ahorcado.src.Controler
             try {
                 do {
                     palabra = CH.leerPalabra("INTRODUCE UNA PALABRA" );
-                    diccionario.agregarPalabra(palabra);
-                    ControlerAhorcado.grabarPalabra(palabra);
+                    if (!estaPalabra(palabra)) {
+                        diccionario.agregarPalabra(palabra);
+                        ControlerAhorcado.grabarPalabra(palabra);
+                    } else {
+                        CH.lcdColor("!> ERROR!! .. LA PALABRA YA ESTÁ EN EL DICCIONARIO!",ConsoleColor.Red);
+                    }
                     salir = CH.seguir("¿QUIERES AGREGAR OTRA PALABRA? [S/N]");
                 } while (!salir);
             } catch (Exception ex) {
@@ -231,7 +238,11 @@ namespace Ahorcado.src.Controler
             grabada = false;
             
             try {
+                foreach (string p in diccionario.palabras) {
+                    if (p.Equals(palabra)) {
 
+                    }
+                }
                 StreamWriter sw = File.AppendText(ruta_diccionario);
                 sw.WriteLine(palabra);
                 sw.Flush();
@@ -271,6 +282,24 @@ namespace Ahorcado.src.Controler
                 }
             }
             return encontrada;
+        }
+
+        public static bool estaPalabra(string palabra) {
+            bool esta;
+            
+            esta = false;
+
+            if (diccionario.palabras!=null) {
+                foreach (string p in diccionario.palabras) {
+                    if (p.ToLower().Equals(palabra)) {
+                        esta = true;
+                        break;
+                    }
+                }
+            }
+            
+            return esta;
+
         }
 
         public static bool resolver(int puntos) {

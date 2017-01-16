@@ -151,11 +151,9 @@ namespace Ahorcado.src.View
 
             salida="";
             foreach (char c in resultado) {
-                if (c.ToString().Equals(0)) {
-                    salida+="_ ";
-                } else {
+                
                     salida+=c.ToString() + " ";   
-                }  
+                  
             }
             CH.lcd("\nI> RESOLUCION: " + salida); 
         }
