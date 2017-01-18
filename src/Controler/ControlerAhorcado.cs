@@ -101,8 +101,7 @@ namespace Ahorcado.src.Controler
                 i = 0;
                 salida ="";
                 //CH.lcd("l> PALABRA A ACERTAR: " + palabra);
-                CH.lcdColor("\ni> OK, MiK.. VAMOS A JUGAR UN POCO\ni> INTRODUCE [RESOLVER] PARA RESOLVER\ni> YO YA TENGO LA PALABRA\n",ConsoleColor.Cyan);
-                
+                CH.lcdColor("\ni> OK, MiK.. VAMOS A JUGAR UN POCO\ni> INTRODUCE [RESOLVER] PARA RESOLVER\ni> YO YA TENGO LA PALABRA\n",ConsoleColor.Cyan);                
                 for (j=0;j<palabras;j++) {
                     salida+="_ ";
                 }
@@ -125,7 +124,6 @@ namespace Ahorcado.src.Controler
                         intentos++;
                         if (!estaLetra(letra)) {
                             agregarLetra(letra);
-                            //letras.SetValue(letra,i);
                             foreach (char c in palabra) {
                                 //CH.lcd("c: " + c + " | l: " + letra + " | pos: " + posicion);
                                 if (c.Equals(letra)) { 
@@ -196,23 +194,53 @@ namespace Ahorcado.src.Controler
             CH.pausa();
         }
 
+        /// <summary>
+        /// MÉTODO PARA LEER UN FICHERO DE TEXTO Y AGREGAR PALABRAS A UN ARRAY DE PALABRAS
+        /// </summary>
         public static void cargarPalabras() {
             // DECLARACION VARIABLES
             StreamReader sr;
             string linea;
+
             // ASIGNACION VARIABLES: ENTRADA
             sr = File.OpenText(ruta_diccionario);
             linea = "";
+
             // PROCESO
             while (!sr.EndOfStream) {
                 linea = sr.ReadLine();
                 diccionario.agregarPalabra(linea);
             }
+            
             sr.Dispose();
             // SALIDA
             //CH.lcdColor("i> SE HAN CARGADO LAS PALABRAS DEL 'diccionario.txt'",ConsoleColor.Green);
         }
 
+        ///<sumary>
+        /// MÉTODO PARA ESCRIBIR STRINGS EN FICHERO DE DATOS
+        ///</sumary>
+        public static bool grabarPalabra(string palabra) {
+            
+            bool grabada;
+            StreamWriter sw;
+            grabada = false;
+            
+            try {
+                
+                sw = File.AppendText(ruta_diccionario);
+                sw.WriteLine(palabra);
+                sw.Flush();
+                sw.Dispose();
+                
+            } catch (IOException ex) {
+                throw new Exception("!> ERROR E/S: " + ex.Message);
+            }
+
+            return grabada;
+        }
+
+        
         public static bool agregarPalabra() {
             bool salir;
             string palabra;
@@ -238,29 +266,6 @@ namespace Ahorcado.src.Controler
             return true;
         }
 
-        public static bool grabarPalabra(string palabra) {
-            
-            bool grabada;
-
-            grabada = false;
-            
-            try {
-                foreach (string p in diccionario.palabras) {
-                    if (p.Equals(palabra)) {
-
-                    }
-                }
-                StreamWriter sw = File.AppendText(ruta_diccionario);
-                sw.WriteLine(palabra);
-                sw.Flush();
-                sw.Dispose();
-                
-            } catch (IOException ex) {
-                throw new Exception("!> ERROR E/S: " + ex.Message);
-            }
-
-            return grabada;
-        }
 
         public static void agregarLetra(char letra) {
             char[] copialetras;
