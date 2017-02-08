@@ -158,7 +158,7 @@ namespace Ahorcado.src.Controler
                                 }
                             }
                         } else {
-                            CH.lcdColor("!> YA HAS DICHO ESA LETRA, WEBON!!",ConsoleColor.Red);
+                            CH.lcdColor("!> YA HAS DICHO ESA LETRA, WEBON!! ... INTENTOS +1",ConsoleColor.Red);
                             //CH.pausa();
                         }
                     }
@@ -204,6 +204,7 @@ namespace Ahorcado.src.Controler
 
             // ASIGNACION VARIABLES: ENTRADA
             sr = File.OpenText(ruta_diccionario);
+            
             linea = "";
 
             // PROCESO
@@ -211,15 +212,15 @@ namespace Ahorcado.src.Controler
                 linea = sr.ReadLine();
                 diccionario.agregarPalabra(linea);
             }
-            
-            sr.Dispose();
+
             // SALIDA
+            sr.Dispose();
             //CH.lcdColor("i> SE HAN CARGADO LAS PALABRAS DEL 'diccionario.txt'",ConsoleColor.Green);
         }
 
-        ///<sumary>
-        /// MÉTODO PARA ESCRIBIR STRINGS EN FICHERO DE DATOS
-        ///</sumary>
+        ///<summary>
+        /// Método para grabar una palabra en el fichero de texto 'diccionario.txt'
+        ///</summary>
         public static bool grabarPalabra(string palabra) {
             
             bool grabada;
@@ -240,7 +241,10 @@ namespace Ahorcado.src.Controler
             return grabada;
         }
 
-        
+        /// <summary>
+        /// Método para agregar una palabra la diccionario de palabras. 
+        /// </summary>
+    
         public static bool agregarPalabra() {
             bool salir;
             string palabra;
@@ -334,3 +338,11 @@ namespace Ahorcado.src.Controler
         }
     }
 }
+
+
+/*
+
+UN CARACTER UNICODE (UTF-8) OCUPA 2 BYTES + 1 EXTRA
+PARA FICHEROS BINARIOS USAREMOS EL BINARYWRITER Y BINARYREADER
+
+*/
