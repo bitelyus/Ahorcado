@@ -1,19 +1,33 @@
 namespace Ahorcado.src.Model
 {
+
+    /// <summary>
+    /// Clase modelo para albergar la estructura de datos 
+    /// con todas las palabras leidas del fichero de texto diccionario.txt
+    /// </summary>
     class Diccionario {
 
-        private string[] _palabras;
+        // ZONA DE ATRIBUTOS
 
+        private string[] _palabras; // NUESTRO ARRAY DINÁMICO DE DATOS PARA LAS PALABRAS
+
+        // Getters & Setters
         public string[] palabras {
             get {
                 return _palabras;
             }
         }
 
+        // ZONA DE CONSTRUCTORES    
         public Diccionario() {
             this._palabras=null;
         }
 
+        // ZONA DE MÉTODOS
+
+        /// <summary>
+        /// Función para agregar una palabra a la estructura dinámica de datos
+        /// </summary>        
         public bool agregarPalabra(string palabra) {
             bool agregada;
 
@@ -36,6 +50,8 @@ namespace Ahorcado.src.Model
             return agregada;
         }
         
+        
+        // SOBREESCRITURA MÉTODO TOSTRING
 
         override
         public string ToString() {
